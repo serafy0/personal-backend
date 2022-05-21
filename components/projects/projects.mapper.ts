@@ -1,18 +1,16 @@
 export function hydrateProjects(projects: any[]): any[] {
     const map = new Map()
     for (let project of projects) {
-        let link: string = ""
-        if (map.has(project.id)) {
-            link = project.link
-            delete project["link"]
-            map.set(project.id, {
+        const { id, link } = project
+        delete project["link"]
+
+        if (map.has(id)) {
+            map.set(id, {
                 ...project,
-                links: [...map.get(project.id).links, link],
+                links: [...map.get(id).links, link],
             })
         } else {
-            link = project.link
-            delete project["link"]
-            map.set(project.id, { ...project, links: [link] })
+            map.set(id, { ...project, links: [link] })
         }
     }
     return Array.from(map.values())
