@@ -17,15 +17,3 @@ export function hydrateProjects(projects: any[]): any[] {
     }
     return Array.from(map.values())
 }
-
-    const projects = await knex
-        .select(
-            "projects.*",
-            "links.title",
-            "links.link",
-            "string_contents.string"
-        )
-        .from("projects")
-        .leftJoin("links", "links.project", "projects.id")
-        .join("string_contents", "string_contents.id", "projects.title")
-
