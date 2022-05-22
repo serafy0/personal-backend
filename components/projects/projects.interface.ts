@@ -1,6 +1,11 @@
-export default interface Project {
+export interface Project {
     id: string
     title: string
     image: string
-    links: string[]
+    links: Link[]
+}
+
+export interface Link {
+    title: string
+    url: string
 }
