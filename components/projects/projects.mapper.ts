@@ -1,3 +1,5 @@
+import { Project, Link } from "./projects.interface"
+
 export function hydrateProjects(projects: any[]): Project[] {
     const map = new Map<string, Project>()
     for (let project of projects) {
