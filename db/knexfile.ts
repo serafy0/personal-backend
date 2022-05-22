@@ -1,9 +1,5 @@
 import type { Knex } from "knex"
 
-// Update with your config settings.
-
-console.log(process.env.DEVELOPMENT_DATABASE_URL)
-
 const config: { [key: string]: Knex.Config } = {
     development: {
         client: "postgresql",
