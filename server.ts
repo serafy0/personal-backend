@@ -5,6 +5,8 @@ import helmet from "helmet"
 import rateLimit, { RateLimitRequestHandler } from "express-rate-limit"
 import pino from "pino-http"
 
+import ProjectRouter from "./components/projects/projects.router"
+
 const app: Express = express()
 const port = process.env.PORT
 
@@ -19,6 +21,8 @@ const limiter: RateLimitRequestHandler = rateLimit({
 app.use(pino())
 app.use(helmet())
 app.use(limiter)
+
+app.use("/project", ProjectRouter)
 
 app.all("*", (req: Request, res: Response) => {
     res.status(404).json({ message: "Not Found" })
