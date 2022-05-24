@@ -1,7 +1,8 @@
 import { Knex } from "knex"
-import { join } from "path"
+import { Project, Link } from "../../components/projects/projects.interface"
 
 export async function seed(knex: Knex): Promise<void> {
+    await knex("images").del()
     await knex("links").del()
     await knex("projects_tags").del()
     await knex("tags").del()
@@ -13,21 +14,24 @@ export async function seed(knex: Knex): Promise<void> {
             string: "pet shop",
         })
         .returning("id")
-
-    await knex("translations").insert([
-        {
-            id: title.id,
-            string: "le magasin d'animaux domestiques",
-            language: "fr",
-        },
-        { id: title.id, string: "محل حيوانات", language: "ar" },
-    ])
+    const images = await knex("images")
+        .insert([
+            {
+                id: "sample",
+                url: "https://res.cloudinary.com/dalisapxa/image/upload/v1632495988/sample.jpg",
+            },
+            {
+                id: "sample2",
+                url: "https://res.cloudinary.com/dalisapxa/image/upload/v1632495988/sample.jpg",
+            },
+        ])
+        .returning("id")
 
     const [project] = await knex("projects")
         .insert([
             {
                 title: title.id,
-                image: "https://res.cloudinary.com/dalisapxa/image/upload/v1652927634/portfolio/Screen_Shot_2021-09-29_at_7.35.30_PM_vg8dg8.png",
+                image_id: images[0].id,
             },
         ])
         .returning("id")

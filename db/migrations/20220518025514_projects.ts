@@ -1,10 +1,14 @@
 import { Knex } from "knex"
 
 export async function up(knex: Knex): Promise<void> {
+    await knex.schema.createTable("images", (table) => {
+        table.string("id").primary()
+        table.string("url").notNullable()
+    })
     await knex.schema.createTable("projects", (table) => {
         table.uuid("id").primary().defaultTo(knex.raw("uuid_generate_v4()"))
         table.uuid("title").references("string_contents.id").notNullable()
-        table.string("image").notNullable()
+        table.string("image_id").notNullable()
     })
     await knex.schema.createTable("links", (table) => {
         table.string("link").primary()
