@@ -2,6 +2,7 @@ import { Knex } from "knex"
 import { Project, Link } from "../../components/projects/projects.interface"
 
 export async function seed(knex: Knex): Promise<void> {
+    await knex("images").del()
     await knex("links").del()
     await knex("projects_tags").del()
     await knex("tags").del()
